@@ -1,0 +1,139 @@
+﻿@model DoctorAppoinment.Models.PatientInfo
+@{
+    ViewBag.Title = "PatientInformation";
+}
+</br>
+<style>
+    .error {
+        color: red;
+    }
+</style>
+<div class="row">
+    <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="text-center">Patient Information</h3>
+            </div>
+            <div class="panel-body">
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken();
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name,  new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.Name, new {  @class = "form-control"  })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MotherName, "Mother Name", htmlAttributes: new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.MotherName, new {  @class = "form-control"  })
+                            @Html.ValidationMessageFor(model => model.MotherName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DateofBirth, "Date of Birth *", new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.DateofBirth, new {  @class = "form-control datepicker" , @tabindex = "3" })
+                            @Html.ValidationMessageFor(model => model.DateofBirth, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Address, "Address *",  new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.Address, new {  @class = "form-control"  })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MobileNo, "Mobile.No *",  new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.MobileNo, new {  @class = "form-control"  })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Email, "Email",  new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.Email, new {  @class = "form-control"  })
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FatherName, "Father Name *",  new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.FatherName, new {  @class = "form-control"  })
+                            @Html.ValidationMessageFor(model => model.FatherName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DistrictInfoId, "District *",  new { @class = "control-label" })
+                            @Html.DropDownListFor(model => model.DistrictInfoId, ViewBag.DistrictList as SelectList, "--Select District",  new { @class = "form-control", @tabindex = "10" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ThanaInfoId, "Thana ", htmlAttributes: new { @class = "control-label" })
+                            @Html.DropDownListFor(model => model.ThanaInfoId, ViewBag.Thana as SelectList, "--Select Thana",  new { @class = "form-control" })
+
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CountryInfoId, "Country *",  new { @class = "control-label" })
+                            @Html.DropDownListFor(model => model.CountryInfoId, ViewBag.Country as SelectList, "--Select Country",  new { @class = "form-control" })
+
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Gender, "Gender *",  new { @class = "control-label" })
+                            <div class="radio-inline">
+                                @Html.RadioButton("Gender", "Male",
+
+          new { id = "IsMale" }) Male
+
+                            </div>
+
+                            <div class="radio-inline">
+
+                                @Html.RadioButton("Gender", "Female",
+
+           new { id = "IsFemale" }) Female
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PatientHistory, "Patient History *",  new { @class = "control-label" })
+                            @Html.TextAreaFor(model => model.PatientHistory,2,2, new { @class = "form-control" })
+
+                        </div>
+                        <div class="form-group">
+                            @Html.HiddenFor(model => model.Id)
+                            <button type="button" id="btnSubmit" class="btn btn-primary">Submit</button>
+                            <button type="button" id="btnClear" class="btn btn-warning">Clear</button>
+                            <p style="color: green">
+                                @if (@ViewBag.Message != null)
+                                {
+                                    @ViewBag.Message
+                                }
+                            </p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <table id="informationHistory" class="table table-bordered table-hover display">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>FatherName</th>
+                    <th>MotherName</th>
+                    <th>PhoneNo</th>
+                    <th>Email</th>
+                    <th></th>
+                    <th></th>*
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+@section scripts
+{
+    <script src="~/Scripts/FormScript/patientinfoform.js">
+
+    </script>
+    <script>
+        $('.datepicker').datepicker();
+    </script>
+}
+
+
+
+
+

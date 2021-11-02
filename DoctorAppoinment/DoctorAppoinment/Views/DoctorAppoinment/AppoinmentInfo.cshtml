@@ -1,0 +1,136 @@
+﻿@model DoctorAppoinment.Models.DoctorAppoinment
+
+@{
+    ViewBag.Title = "AppoinmentInfo";
+}
+
+<style>
+    .error {
+        color: red;
+    }
+</style>
+<div class="row">
+    <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="text-center">Doctor Appoinment Information</h3>
+            </div>
+            <div class="panel-body">
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken();
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @*<input type="text" id="txtFindTrainee" class="form-control" placeholder="Search By NSSL Id...">*@
+                            @*<span class="input-group-addon btn btn-primary" id="btnSearch"><i class="fa fa-search" aria-hidden="true"></i></span>*@
+
+                            @Html.LabelFor(model => model.PatientName,"Patient Name",  new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.PatientName, new {  @class = "form-control", @placeholder = "Search by Patient Name"  })
+                            @*<span class="input-group-addon btn btn-primary" id="btnSearch"><i class="fa fa-search" aria-hidden="true"></i></span>*@
+                            @Html.ValidationMessageFor(model => model.PatientName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MobileNo, "Mobile NO",  new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.MobileNo, new {  @class = "form-control", @placeholder = "Search by Patient Mobile No" })
+                            @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AppoinmentDate, "Appoinment Date *",  new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.AppoinmentDate, new {  @class = "form-control datepicker" , @tabindex = "3" })
+                            @Html.ValidationMessageFor(model => model.AppoinmentDate, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Address, "Address ",  new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.Address,  new { @class = "form-control"  })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PatientHistory, "Patient History ",  new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.PatientHistory, new { @class = "form-control"  })
+                        </div>
+                       
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FatherName, "FatherName",  new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.FatherName, new {  @class = "form-control"  })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AppoinmentNo, "Appoinment No ",  new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.AppoinmentNo, new {  @class = "form-control"  })
+                            @Html.ValidationMessageFor(model => model.AppoinmentNo, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DoctorInfoId, "Doctor *",  new { @class = "control-label" })
+                            @Html.DropDownListFor(model => model.DoctorInfoId, ViewBag.DoctorInfo as SelectList, "--Select Doctor", htmlAttributes: new { @class = "form-control", @tabindex = "10" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SerialNo, "Serial  No*",  new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.SerialNo, new {  @class = "form-control"  })
+                            @Html.ValidationMessageFor(model => model.SerialNo, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Gender, "Gender *",  new { @class = "control-label" })
+                            <div class="radio-inline">
+                                @Html.RadioButton("Gender", "Male",
+
+          new { id = "IsMale" }) Male
+
+                            </div>
+
+                            <div class="radio-inline">
+
+                                @Html.RadioButton("Gender", "Female",
+
+           new { id = "IsFemale" }) Female
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.HiddenFor(model => model.Id)
+                            <button type="button" id="btnSubmit" class="btn btn-primary">Submit</button>
+
+                            <button type="button" id="btnClear" class="btn btn-warning">Clear</button>
+                            <p style="color: green">
+                                @if (@ViewBag.Message != null)
+                                {
+                                    @ViewBag.Message
+                                }
+                            </p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <table id="informationHistory" class="table table-bordered table-hover display">
+            <thead>
+                <tr>
+                    <th>Patient Name</th>
+                    <th>Serial No</th>
+                    <th>Appoinment No</th>
+                    <th>Mobile No</th>
+                    
+                    <th></th>
+                    <th></th>*
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+@section scripts
+{
+    <script src="~/Scripts/FormScript/appoinment.js">
+
+</script>
+<script>
+    $('.datepicker').datepicker();
+</script>
+
+<script src="~/Scripts/FormScript/jquery-ui.js"></script>
+   
+}
